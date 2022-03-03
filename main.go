@@ -53,6 +53,10 @@ func handleRequests() {
 	// argument
 
 	port := os.Getenv("PORT")
+	if len(port) <= 0 {
+		port = "10000"
+	}
+	println("porta = " + port)
 	log.Fatal(http.ListenAndServe(":"+port, myRouter))
 }
 
