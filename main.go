@@ -8,6 +8,7 @@ import (
 	"os"
 
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 )
 
 type Article struct {
@@ -48,6 +49,9 @@ func handleRequests() {
 	myRouter.HandleFunc("/", homePage)
 	myRouter.HandleFunc("/all", returnAllArticles)
 	myRouter.HandleFunc("/article/{id}", returnSingleArticle)
+
+	//allow cors:
+	myRouter.Headers("Access-Control-Allow-Origin", "*")
 	// finally, instead of passing in nil, we want
 	// to pass in our newly created router as the second
 	// argument
@@ -57,7 +61,14 @@ func handleRequests() {
 		port = "10000"
 	}
 	println("porta = " + port)
-	log.Fatal(http.ListenAndServe(":"+port, myRouter))
+
+	c := cors.New(cors.Options{
+		AllowedOrigins:   []string{"*"},
+		AllowCredentials: true,
+	})
+
+	handler := c.Handler(myRouter)
+	log.Fatal(http.ListenAndServe(":"+port, handler))
 }
 
 func returnAllArticles(w http.ResponseWriter, r *http.Request) {
