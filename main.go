@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
 )
@@ -50,7 +51,9 @@ func handleRequests() {
 	// finally, instead of passing in nil, we want
 	// to pass in our newly created router as the second
 	// argument
-	log.Fatal(http.ListenAndServe(":10000", myRouter))
+
+	port := os.Getenv("PORT")
+	log.Fatal(http.ListenAndServe(":"+port, myRouter))
 }
 
 func returnAllArticles(w http.ResponseWriter, r *http.Request) {
