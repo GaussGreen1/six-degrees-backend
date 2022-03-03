@@ -50,7 +50,7 @@ func handleRequests() {
 	// finally, instead of passing in nil, we want
 	// to pass in our newly created router as the second
 	// argument
-	log.Fatal(http.ListenAndServe("127.0.0.1:10000", myRouter))
+	log.Fatal(http.ListenAndServe(":10000", myRouter))
 }
 
 func returnAllArticles(w http.ResponseWriter, r *http.Request) {
