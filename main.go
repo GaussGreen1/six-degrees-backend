@@ -96,10 +96,24 @@ func createNewArticle(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(results)
 
 	for _, element := range results {
+		if element.Degrees == -1 {
+			calculateShortestPath(&element)
+			updateDegrees(&element)
+		}
 		fmt.Println(element.Degrees)
 		json.NewEncoder(w).Encode(element)
 	}
 
+}
+
+func calculateShortestPath(degreesObject *DegreesObject) {
+	//TODO
+	panic("unimplemented")
+}
+
+func updateDegrees(degreesObject *DegreesObject) {
+	//TODO
+	panic("unimplemented")
 }
 
 func handleRequests() {
